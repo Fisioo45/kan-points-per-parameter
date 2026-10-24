@@ -1,0 +1,135 @@
+
+ckpt: early stopping with a checkpoint at every LBFGS step
+  799 runs. step1 = best step at full resolution; test1/absorb1 = early-stopped at every step;
+  test10/absorb10 = the same runs early-stopped on the core sweep's every-10 grid.
+
+                   step1  test1  test10  absorb1  absorb10  mlp_early_test  mlp_absorb  kan/mlp (every step)
+bin         noise                                                                                           
+(0.0, 0.25] 0.1      3.5  0.676   0.733    2.066     0.309           0.101       0.956                 6.703
+            0.4      4.0  0.700   0.792    1.000     0.156           0.233       0.943                 3.004
+(0.25, 0.5] 0.1      2.0  0.456   0.480    1.417     0.444           0.066       0.978                 6.914
+            0.4      1.0  0.575   0.844    0.870     0.242           0.185       0.968                 3.109
+(0.5, 1.0]  0.1      6.0  0.242   0.283    0.927     0.669           0.064       0.967                 3.793
+            0.4      1.0  0.401   0.632    0.900     0.560           0.192       0.957                 2.084
+(1.0, 2.0]  0.1      8.0  0.127   0.149    0.952     0.820           0.048       0.984                 2.646
+            0.4      2.0  0.302   0.467    0.930     0.717           0.167       0.976                 1.806
+
+==============================================================================
+effkan: second implementation (efficient-kan, same parameter count and training)
+  540 runs, 38 diverged. Medians over noisy runs (noise >= 0.1):
+
+             eff_absorb  pykan_absorb  mlp_absorb  eff_final_test  pykan_final_test  mlp_final_test
+bin                                                                                                
+(0.0, 0.25]       0.001         0.000       0.585           0.951             1.130           0.306
+(0.25, 0.5]       0.001         0.000       0.837           0.610             0.666           0.173
+(0.5, 1.0]        0.470         0.388       0.798           0.534             0.889           0.156
+(1.0, 2.0]        0.468         0.454       0.940           0.285             0.423           0.102
+(2.0, 4.0]        0.868         0.846       0.968           0.201             0.183           0.062
+(4.0, 8.0]        0.897         0.901       0.974           0.150             0.087           0.073
+(8.0, 16.0]       0.964         0.954       0.986           0.073             0.054           0.050
+(16.0, inf]       1.013         1.013       1.052           0.051             0.052           0.061
+  Spearman correlation of log test error, efficient-kan vs pykan, same cells: 0.86 (n = 334)
+
+==============================================================================
+h2: grid extension (3 -> 5 -> 10 -> 20 -> 50 -> 100) under noise
+
+Share of refinement steps that lowered test error, by N/P after the step:
+noise        0.00  0.05  0.10  0.20  0.40
+bin                                      
+(0.0, 0.25]  0.00  0.18  0.29  0.53  0.60
+(0.25, 0.5]  0.10  0.22  0.44  0.34  0.38
+(0.5, 1.0]   0.42  0.08  0.05  0.08  0.08
+(1.0, 2.0]   0.69  0.13  0.07  0.15  0.09
+(2.0, 4.0]   0.88  0.00  0.00  0.03  0.00
+(4.0, 8.0]   1.00  0.10  0.10  0.02  0.00
+(8.0, 16.0]  0.90  0.20  0.10  0.00  0.00
+(16.0, inf]  1.00  0.49  0.40  0.26  0.11
+
+Median test error after each stage:
+noise    0.00    0.05    0.10    0.20    0.40
+grid                                         
+3      0.0077  0.0192  0.0341  0.0694  0.1326
+5      0.0040  0.0182  0.0393  0.0781  0.1736
+10     0.0016  0.0297  0.0597  0.1348  0.2723
+20     0.0036  0.1243  0.2107  0.3480  0.7392
+50     0.0146  0.1777  0.2596  0.4896  0.8170
+100    0.2490  0.3485  0.4575  0.6628  0.8921
+
+Median grid size at which test error was lowest (the right place to stop refining):
+noise  0.00  0.05  0.10  0.20  0.40
+n                                  
+100     5.0   3.0   3.0   3.0   5.0
+300    20.0   3.0   3.0   3.0   3.0
+1000   20.0   3.0   3.0   3.0   3.0
+3000   10.0   4.0   3.0   3.0   3.0
+
+... and the N/P at that best grid:
+noise   0.00   0.05   0.10   0.20   0.40
+n                                       
+100     0.70   0.97   1.11   0.83   0.83
+300     1.33   3.33   3.33   3.33   3.33
+1000    2.67   9.72   8.33  11.11  11.11
+3000   17.78  29.17  29.17  33.33  29.17
+
+Median test error of grid extension relative to training at the same G from scratch (below 1 = extension better):
+noise  0.00  0.05  0.10  0.20  0.40
+grid                               
+3      1.04  0.97  1.02  1.00  1.00
+5      0.77  0.97  0.96  0.91  0.95
+10     0.35  0.95  0.95  0.97  0.93
+20     0.10  0.57  0.74  0.87  0.91
+50     0.05  0.48  0.59  0.82  0.92
+100    0.71  0.72  0.67  1.01  1.12
+
+==============================================================================
+h3: symbolic recovery (prune, snap to library, refit)
+  recovered = formula R^2 >= 0.999 on clean test data (RMSE < 0.0316); exact = RMSE < 0.01
+  432 runs; pipeline failures 35; refits reverted 13
+
+Recovery rate by N/P (rows) and noise (columns):
+noise        0.00  0.05  0.10  0.20
+bin                                
+(0.0, 0.25]  0.00  0.00  0.00  0.00
+(0.25, 0.5]  0.24  0.05  0.00  0.00
+(0.5, 1.0]   0.48  0.37  0.00  0.00
+(1.0, 2.0]   0.47  0.40  0.07  0.00
+(2.0, 4.0]   0.48  0.33  0.14  0.05
+(4.0, 8.0]   0.25  0.25  0.25  0.08
+(8.0, 16.0]  0.67  0.56  0.33  0.33
+
+Exact recovery rate (RMSE < 0.01) by N/P and noise:
+noise        0.00  0.05  0.10  0.20
+bin                                
+(0.0, 0.25]  0.00  0.00  0.00   0.0
+(0.25, 0.5]  0.24  0.00  0.00   0.0
+(0.5, 1.0]   0.41  0.07  0.00   0.0
+(1.0, 2.0]   0.40  0.27  0.00   0.0
+(2.0, 4.0]   0.38  0.24  0.05   0.0
+(4.0, 8.0]   0.25  0.25  0.25   0.0
+(8.0, 16.0]  0.56  0.22  0.00   0.0
+
+Recovery rate by function and noise:
+noise       0.00  0.05  0.10  0.20
+func                              
+additive3   0.85  0.63  0.19  0.04
+exp_sin_sq  0.48  0.37  0.15  0.11
+norm3       0.19  0.15  0.04  0.04
+product     0.11  0.04  0.00  0.00
+
+Baseline: recovery rate on clean data with N/P >= 4 (what each function can reach at best):
+func
+additive3     1.00
+exp_sin_sq    0.50
+norm3         0.33
+product       0.17
+
+Median test error of the pruned spline model before snapping:
+noise         0.00   0.05   0.10   0.20
+bin                                    
+(0.0, 0.25]  0.122  0.261  0.298  0.424
+(0.25, 0.5]  0.325  0.374  0.460  0.571
+(0.5, 1.0]   0.016  0.047  0.175  0.484
+(1.0, 2.0]   0.008  0.040  0.100  0.327
+(2.0, 4.0]   0.003  0.019  0.038  0.176
+(4.0, 8.0]   0.004  0.014  0.032  0.102
+(8.0, 16.0]  0.002  0.012  0.018  0.033

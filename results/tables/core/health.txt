@@ -1,0 +1,14 @@
+Run health
+  finished jobs: 7630
+  jobs that failed and were never rerun successfully: 0
+  jobs where the safe least-squares fallback was used: 0
+  KAN runs that diverged (excluded from medians, reported here): 23
+  KAN divergence by N/P bin:
+             sum  count   rate
+np_bin                        
+(0.0, 0.5]    23   2700  0.009
+(0.5, 1.0]     0   1180  0.000
+(1.0, 2.0]     0   1400  0.000
+(2.0, 5.0]     0    920  0.000
+(5.0, 20.0]    0    920  0.000
+(20.0, inf]    0    510  0.000

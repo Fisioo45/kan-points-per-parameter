@@ -1,0 +1,19 @@
+H1 test on KAN cell medians (final checkpoint, noise > 0), outcome = log test RMSE
+
+Full model: log N, log G, log edges, log noise, function fixed effects
+  n = 856, R^2 = 0.804, AIC = -446.9
+  intercept    +0.489  (se 0.259)
+  log N        -0.683  (se 0.023)
+  log G        +0.545  (se 0.024)
+  log edges    +0.436  (se 0.096)
+  log noise    +0.538  (se 0.021)
+
+N/P model: log N/P, log noise, function fixed effects
+  n = 856, R^2 = 0.799, AIC = -428.0
+  intercept    -0.612  (se 0.096)
+  log N/P      -0.696  (se 0.016)
+  log noise    +0.534  (se 0.021)
+
+R^2 lost by using N/P alone: +0.005; AIC difference (N/P - full): +19.0
+Under H1, log N and log G get roughly equal and opposite coefficients in the full model.
+N/P alone fits about as well as N, G and width separately (supports H1).

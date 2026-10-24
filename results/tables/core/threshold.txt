@@ -1,0 +1,13 @@
+N/P at which the KAN's median noise absorption first reaches 0.9
+(only cells where the KAN fits clean data to test RMSE < 0.1):
+
+  all functions    N/P ~ 3.98
+  damped_sine      N/P ~ 3.98
+  exp_sin_sq       N/P ~ 6.31
+  feyn_I_18_4      N/P ~ 6.31
+  feyn_I_6_2       N/P ~ 6.31
+  j0_bessel        N/P ~ 1.58
+  product          N/P ~ 3.98
+  radial           N/P ~ 3.98
+
+  median over functions: N/P ~ 3.98

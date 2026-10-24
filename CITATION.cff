@@ -1,0 +1,26 @@
+cff-version: 1.2.0
+message: "If you use this code or these results, please cite the paper below."
+title: "Points per parameter: data density governs the noise robustness of Kolmogorov-Arnold networks (code and results)"
+type: software
+license: MIT
+authors:
+  - family-names: "Çelik"
+    given-names: "Esat Fazlullah"
+    affiliation: "Manisa Celal Bayar University"
+    orcid: "https://orcid.org/0000-0002-1908-1600"
+  # add co-authors here in the same format
+repository-code: "https://github.com/Fisioo45/kan-points-per-parameter"
+keywords:
+  - Kolmogorov-Arnold networks
+  - label noise
+  - memorisation
+  - scientific machine learning
+preferred-citation:
+  type: article
+  title: "Points per parameter: data density governs the noise robustness of Kolmogorov-Arnold networks"
+  authors:
+    - family-names: "[Surname]"
+      given-names: "Esat"
+  journal: "Machine Learning: Science and Technology"
+  year: 2026
+  notes: "Submitted"

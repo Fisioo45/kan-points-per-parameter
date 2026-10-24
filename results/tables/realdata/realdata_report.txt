@@ -1,0 +1,157 @@
+Runs: 2610 (16 KAN runs diverged, excluded from KAN metrics)
+Runs per dataset and width:
+hidden      2    5
+dataset           
+airfoil   300  300
+ccpp      405  405
+concrete  225  225
+energy    225  225
+yacht     150  150
+N/P range per dataset: airfoil 0.06-8.3, ccpp 0.07-40.0, concrete 0.04-2.8, energy 0.04-2.8, yacht 0.04-1.3
+
+1. Fit ratio train/val RMSE, median (1 = no memorisation, 0 = memorised)
+KAN, final checkpoint
+noise        0.0   0.1   0.3
+0-0.125     0.00  0.00  0.00
+0.125-0.25  0.00  0.00  0.00
+0.25-0.5    0.01  0.01  0.00
+0.5-1       0.07  0.08  0.08
+1-2         0.30  0.29  0.32
+2-4         0.61  0.59  0.58
+4-8         0.74  0.77  0.76
+8-16        0.90  0.91  0.90
+16-64       1.01  1.01  0.98
+MLP, final checkpoint
+noise        0.0   0.1   0.3
+0-0.125     0.05  0.03  0.02
+0.125-0.25  0.08  0.05  0.03
+0.25-0.5    0.13  0.12  0.07
+0.5-1       0.25  0.24  0.17
+1-2         0.54  0.49  0.41
+2-4         0.83  0.79  0.70
+4-8         0.93  0.95  0.92
+8-16        1.01  1.01  0.99
+16-64       1.03  1.03  1.00
+  sigma 0.0: KAN fit ratio reaches 0.9 at N/P ~ 11
+  sigma 0.0: MLP fit ratio reaches 0.9 at N/P ~ 4.6
+  sigma 0.1: KAN fit ratio reaches 0.9 at N/P ~ 11
+  sigma 0.1: MLP fit ratio reaches 0.9 at N/P ~ 4.6
+  sigma 0.3: KAN fit ratio reaches 0.9 at N/P ~ 11
+  sigma 0.3: MLP fit ratio reaches 0.9 at N/P ~ 5.4
+  per dataset (injected noise pooled), KAN fit ratio 0.9 at N/P ~ airfoil nan, ccpp 11, concrete nan, energy nan, yacht nan
+
+2. KAN/MLP test RMSE ratio, median (<1: KAN better)
+final checkpoint
+noise        0.0   0.1   0.3
+0-0.125     1.30  1.04  0.75
+0.125-0.25  1.21  0.99  0.88
+0.25-0.5    1.20  1.16  0.98
+0.5-1       1.47  1.44  1.17
+1-2         1.37  1.43  1.37
+2-4         1.25  1.25  1.32
+4-8         1.13  1.14  1.22
+8-16        1.01  1.03  1.11
+16-64       0.99  0.99  1.01
+early-stopped (both models at their validation minimum)
+noise        0.0   0.1   0.3
+0-0.125     1.50  1.44  1.43
+0.125-0.25  1.32  1.28  1.32
+0.25-0.5    1.21  1.22  1.31
+0.5-1       1.08  1.08  1.14
+1-2         1.06  1.07  1.10
+2-4         1.02  1.02  1.03
+4-8         1.01  1.01  1.03
+8-16        0.99  0.99  1.01
+16-64       0.99  0.99  1.00
+fraction of runs where the early-stopped KAN beats the early-stopped MLP
+noise        0.0   0.1   0.3
+0-0.125     0.20  0.22  0.24
+0.125-0.25  0.21  0.21  0.24
+0.25-0.5    0.22  0.24  0.21
+0.5-1       0.33  0.32  0.34
+1-2         0.33  0.31  0.35
+2-4         0.42  0.38  0.41
+4-8         0.44  0.34  0.20
+8-16        0.66  0.63  0.40
+16-64       0.90  0.95  0.55
+by dataset, early-stopped ratio (all noise levels), N/P < 2 vs >= 2:
+  airfoil   1.40  1.00
+  ccpp      1.19  1.01
+  concrete  1.16  0.97
+  energy    0.84  0.92
+  yacht     1.51  nan
+
+3. Degradation: test RMSE with injected noise / without, median
+kan_test
+noise        0.1   0.3
+0-0.125     1.13  1.49
+0.125-0.25  1.11  1.60
+0.25-0.5    1.21  1.67
+0.5-1       1.15  1.55
+1-2         1.10  1.48
+2-4         1.07  1.36
+4-8         1.03  1.16
+8-16        1.01  1.11
+16-64       1.00  1.02
+mlp_test
+noise        0.1   0.3
+0-0.125     1.32  2.21
+0.125-0.25  1.36  2.12
+0.25-0.5    1.25  1.88
+0.5-1       1.16  1.86
+1-2         1.06  1.47
+2-4         1.01  1.20
+4-8         1.00  1.05
+8-16        1.00  1.02
+16-64       1.00  1.01
+kan_early
+noise        0.1   0.3
+0-0.125     1.05  1.20
+0.125-0.25  1.04  1.22
+0.25-0.5    1.06  1.26
+0.5-1       1.04  1.21
+1-2         1.04  1.17
+2-4         1.02  1.12
+4-8         1.01  1.05
+8-16        1.00  1.03
+16-64       1.00  1.02
+mlp_early
+noise        0.1   0.3
+0-0.125     1.03  1.12
+0.125-0.25  1.04  1.14
+0.25-0.5    1.02  1.08
+0.5-1       1.02  1.12
+1-2         1.02  1.09
+2-4         1.00  1.07
+4-8         1.00  1.02
+8-16        1.00  1.01
+16-64       1.00  1.01
+
+4. Regression of log KAN test RMSE (final), dataset x width fixed effects
+  sigma 0.0: log N/P coef -0.33 (R2 0.838) | log N -0.42, log(G+5) +0.20 (R2 0.853); 174 cells
+  sigma 0.1: log N/P coef -0.31 (R2 0.781) | log N -0.41, log(G+5) +0.16 (R2 0.810); 174 cells
+  sigma 0.3: log N/P coef -0.31 (R2 0.544) | log N -0.46, log(G+5) +0.12 (R2 0.613); 174 cells
+
+4b. Same regression for memorisation: logit of the KAN fit ratio (clipped to 0.01-0.99)
+  sigma 0.0: log N/P coef +1.77 (R2 0.876) | log N +1.99, log(G+5) -1.47 (R2 0.887)
+  sigma 0.1: log N/P coef +1.77 (R2 0.878) | log N +2.00, log(G+5) -1.46 (R2 0.890)
+  sigma 0.3: log N/P coef +1.75 (R2 0.879) | log N +1.96, log(G+5) -1.47 (R2 0.888)
+
+5. Choosing the grid: median test RMSE relative to the best grid in hindsight
+   ruleT = finest grid with N/P >= T (coarsest grid if none); val = lowest validation error;
+   suffix _e = early-stopped KAN (relative to the best early-stopped grid)
+final checkpoint
+       rule1  rule2  rule4  rule8  rule16  val    G3    G5   G20
+noise                                                           
+0.0     1.44   1.18   1.11   1.07    1.04  1.0  1.04  1.15  1.41
+0.1     1.54   1.28   1.15   1.07    1.05  1.0  1.05  1.16  1.46
+0.3     1.73   1.50   1.27   1.15    1.08  1.0  1.06  1.25  1.53
+early-stopped
+       rule1_e  rule2_e  rule4_e  rule8_e  rule16_e  G3_e  G5_e  G20_e
+noise                                                                 
+0.0       1.05     1.02     1.01     1.00       1.0   1.0  1.03   1.30
+0.1       1.05     1.02     1.00     1.00       1.0   1.0  1.05   1.35
+0.3       1.07     1.05     1.01     1.01       1.0   1.0  1.08   1.32
+539 cells (dataset, width, N, noise, seed) with three or more grids
+fraction of cells where the N/P >= 4 rule is at least as good as validation selection: sigma 0.0: 0.48, sigma 0.1: 0.45, sigma 0.3: 0.38
+early-stopped KAN at the validation-selected grid vs early-stopped MLP: median ratio sigma 0.0: 0.99 (KAN better in 56%), sigma 0.1: 1.00 (KAN better in 50%), sigma 0.3: 1.01 (KAN better in 45%)

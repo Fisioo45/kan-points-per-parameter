@@ -1,0 +1,12 @@
+# Versions used for the paper: torch 2.6.0 and pykan 0.2.8 (CPU, Windows)
+torch==2.6.0
+pykan==0.2.8
+numpy>=1.24
+pandas>=2.0
+scipy>=1.10
+matplotlib>=3.7
+scikit-learn>=1.3
+sympy>=1.12
+pyyaml>=6.0
+tqdm>=4.65
+ucimlrepo>=0.0.7
