@@ -18,9 +18,9 @@ keywords:
 preferred-citation:
   type: article
   title: "Points per parameter: data density governs the noise robustness of Kolmogorov-Arnold networks"
-  authors:
-    - family-names: "[Surname]"
-      given-names: "Esat"
+  author:
+    - family-names: "Çelik"
+      given-names: "Esat Fazlullah"
   journal: "Machine Learning: Science and Technology"
   year: 2026
   notes: "Submitted"
